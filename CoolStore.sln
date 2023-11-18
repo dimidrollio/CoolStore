@@ -5,11 +5,17 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolStore", "CoolStore\CoolStore.csproj", "{3A0466B9-7ADC-465A-BA23-31EF32575F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolStore.DataAccess", "CoolStore.DataAccess\CoolStore.DataAccess.csproj", "{648B97E0-E027-4468-AA22-3DA688D76B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolStore.DataAccess", "CoolStore.DataAccess\CoolStore.DataAccess.csproj", "{648B97E0-E027-4468-AA22-3DA688D76B9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolStore.Models", "CoolStore.Models\CoolStore.Models.csproj", "{9B692C21-7F10-4B6E-904C-830481BE7790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolStore.Models", "CoolStore.Models\CoolStore.Models.csproj", "{9B692C21-7F10-4B6E-904C-830481BE7790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolStore.Utility", "CoolStore.Utility\CoolStore.Utility.csproj", "{DB70916C-CD22-4996-BB68-29E5F1DF7257}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolStore.Utility", "CoolStore.Utility\CoolStore.Utility.csproj", "{DB70916C-CD22-4996-BB68-29E5F1DF7257}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{0A93EA87-2ABE-4B08-9361-C2DB2E781681}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

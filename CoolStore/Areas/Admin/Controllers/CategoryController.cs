@@ -1,6 +1,8 @@
 ﻿using CoolStore.DataAccess.Data;
 using CoolStore.DataAccess.Repository.IRepository;
 using CoolStore.Models;
+using CoolStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 namespace CoolStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
+
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

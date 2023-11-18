@@ -214,6 +214,10 @@ csx/
 ecf/
 rcf/
 
+#manually added 
+CoolStore.DataAccess/Migrations
+
+
 # Windows Store app package directories and files
 AppPackages/
 BundleArtifacts/

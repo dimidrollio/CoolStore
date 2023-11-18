@@ -1,12 +1,15 @@
 ﻿using CoolStore.DataAccess.Repository.IRepository;
 using CoolStore.Models;
 using CoolStore.Models.ViewModels;
+using CoolStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CoolStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = SD.Role_Admin)]
 	public class ProductController : Controller
 	{
 		public IUnitOfWork _unitOfWork;

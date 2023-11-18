@@ -9,6 +9,7 @@
   <ItemGroup>
 	<ProjectReference Include="..\CoolStore.DataAccess\CoolStore.DataAccess.csproj" />
     <ProjectReference Include="..\CoolStore.Models\CoolStore.Models.csproj" />
+    <ProjectReference Include="..\CoolStore.Utility\CoolStore.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
