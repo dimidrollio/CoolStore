@@ -29,8 +29,9 @@ namespace CoolStore.Areas.Admin.Controllers
         {
             if (id == null || id == 0)
             {
+                Company company = new Company();
                 //create
-                return View();
+                return View(company);
             }
             else
             {
@@ -75,5 +76,16 @@ namespace CoolStore.Areas.Admin.Controllers
                 return Json(new { success = true, message = "Deleted successfully" });
             }
         }
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Company> companies = _unitOfWork.Company.GetAll().ToList();
+            return Json(new { data = companies });
+        }
+
+        #endregion
     }
 }
