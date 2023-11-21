@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CoolStore.DataAccess.Repository
 {
-    public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository 
+    internal class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
-
         private ApplicationDBContext _db;
-        public ShoppingCartRepository(ApplicationDBContext db) : base(db)
+
+        public ApplicationUserRepository(ApplicationDBContext db) : base(db)
         {
             _db = db;
         }

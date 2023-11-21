@@ -14,6 +14,7 @@ namespace CoolStore.DataAccess.Repository.IRepository
         void Add(T item);
         void Remove(T item);
         void RemoveRange(IEnumerable<T> items);
+        void Update(T item);
     }
 }
  
