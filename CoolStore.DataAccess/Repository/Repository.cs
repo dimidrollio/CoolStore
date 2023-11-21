@@ -24,10 +24,6 @@ namespace CoolStore.DataAccess.Repository
 		{
 			dbSet.Add(entity);
 		}
-		public void Update(T entity)
-		{
-			dbSet.Update(entity);
-		}
 
 		public T Get(Expression<Func<T, bool>> filter, string? incluceProperties = null)
 		{
