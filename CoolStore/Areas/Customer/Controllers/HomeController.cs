@@ -1,7 +1,9 @@
 ﻿using CoolStore.DataAccess.Repository;
 using CoolStore.DataAccess.Repository.IRepository;
 using CoolStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CoolStore.Areas.Customer.Controllers
 {
@@ -19,13 +21,30 @@ namespace CoolStore.Areas.Customer.Controllers
             return View(products);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-			Product products = _unitOfWork.Product.Get(u => u.Id == id, incluceProperties: "Category");
-            return View(products);
+            ShoppingCart cart = new()
+            {
+                Product = _unitOfWork.Product.Get(u => u.Id == id, incluceProperties: "Category"),
+                Count = 1,
+                ProductId = id
+            };
+            return View(cart);
 		}
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart cart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            cart.ApplicationUserId = userId;
+            cart.Id = 0;
+            _unitOfWork.ShoppingCart.Add(cart);
+            _unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
 
-		public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }

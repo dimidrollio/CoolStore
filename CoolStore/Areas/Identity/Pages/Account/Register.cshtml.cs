@@ -168,12 +168,8 @@ namespace CoolStore.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.PhoneNumber = Input.PhoneNumber;
-
-                if(Input.Role == SD.Role_Company)
-                {
-                    user.CompanyId = Input.CompanyId;
-                }
-
+                user.CompanyId = Input.CompanyId;
+               
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
