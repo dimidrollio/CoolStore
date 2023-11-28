@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CoolStore.DataAccess.Data;
 using CoolStore.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CoolStore.DataAccess.Repository
 {
@@ -30,25 +31,38 @@ namespace CoolStore.DataAccess.Repository
 			dbSet.Update(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter, string? incluceProperties = null)
+		public T Get(Expression<Func<T, bool>> filter, string? incluceProperties = null, bool tracked =false)
 		{
-			IQueryable<T> query = dbSet;
-			query = query.Where(filter);
-			if (!string.IsNullOrEmpty(incluceProperties))
+			IQueryable<T> query;
+			if (tracked)
 			{
-				foreach (var includeProp in incluceProperties
-					.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-				{
-					query = query.Include(includeProp);
-				}
+				 query = dbSet;
+				
 			}
-			return query.FirstOrDefault();
-		}
-
-		public IEnumerable<T> GetAll(string? incluceProperties = null)
+			else
+			{
+				 query = dbSet.AsNoTracking();
+            }
+            query = query.Where(filter);
+            if (!string.IsNullOrEmpty(incluceProperties))
+            {
+                foreach (var includeProp in incluceProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.FirstOrDefault();
+        }
+		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? incluceProperties = null)
 		{
 			IQueryable<T> query = dbSet;
-			if (!string.IsNullOrEmpty(incluceProperties))
+			if(filter != null)
+			{
+                query = query.Where(filter);
+
+            }			
+            if (!string.IsNullOrEmpty(incluceProperties))
 			{
 				foreach (var includeProp in incluceProperties
 					.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

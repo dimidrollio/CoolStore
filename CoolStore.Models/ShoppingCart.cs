@@ -11,6 +11,7 @@ namespace CoolStore.Models
 {
     public class ShoppingCart
     {
+        [Key]
         public int Id { get; set; }
 
         public int ProductId {  get; set; }
