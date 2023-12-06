@@ -15,6 +15,7 @@ namespace CoolStore.Models.ViewModels
         public IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
 
         [ValidateNever]
-        public double OrderTotal { get; set; }
+        public OrderHeader OrderHeader { get; set; }
+
     }
 }
