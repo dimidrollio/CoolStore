@@ -1,0 +1,28 @@
+﻿@model List<OrderVM>
+
+<div class="container">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-primary">
+				Order list
+			</h2>
+		</div>		
+	</div>
+	<table id="tblData" class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Phone Number</th>
+				<th>User Email</th>
+				<th>Order Status</th>
+				<th>Order Total</th>
+				<th></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+@section Scripts {
+	<script src="~/js/order.js"></script>
+}

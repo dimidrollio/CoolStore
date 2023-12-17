@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CoolStore.Utility;
-
+using Stripe;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => 
@@ -18,6 +18,8 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
+builder.Services.Configure<StripeSettings>(options =>
+                                            builder.Configuration.GetSection("Stripe"));
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -28,6 +30,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.UseAuthentication();
 app.UseAuthorization();

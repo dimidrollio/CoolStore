@@ -25,7 +25,7 @@ namespace CoolStore.Areas.Customer.Controllers
         {
             ShoppingCart cart = new()
             {
-                Product = _unitOfWork.Product.Get(u => u.Id == id, incluceProperties: "Category"),
+                Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "Category"),
                 Count = 1,
                 ProductId = id
             };

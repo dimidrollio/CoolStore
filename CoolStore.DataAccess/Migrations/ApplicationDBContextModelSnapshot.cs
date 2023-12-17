@@ -194,7 +194,7 @@ namespace CoolStore.DataAccess.Migrations
                     b.Property<DateTime>("PaymentDueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PaymentIndentId")
+                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
@@ -206,6 +206,9 @@ namespace CoolStore.DataAccess.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ShippingDate")
