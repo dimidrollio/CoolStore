@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CoolStore.Utility;
 using Stripe;
+using Microsoft.EntityFrameworkCore.Design;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => 
@@ -21,6 +22,15 @@ builder.Services.ConfigureApplicationCookie(options => {
 builder.Services.Configure<StripeSettings>(options =>
                                             builder.Configuration.GetSection("Stripe"));
 builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -35,7 +45,7 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey"
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllers();
 app.UseStaticFiles();
 

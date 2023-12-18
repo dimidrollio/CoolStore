@@ -31,7 +31,7 @@ namespace CoolStore.DataAccess.Repository
 			dbSet.Update(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter, string? incluceProperties = null, bool tracked =false)
+		public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked =false)
 		{
 			IQueryable<T> query;
 			if (tracked)
@@ -44,9 +44,9 @@ namespace CoolStore.DataAccess.Repository
 				 query = dbSet.AsNoTracking();
             }
             query = query.Where(filter);
-            if (!string.IsNullOrEmpty(incluceProperties))
+            if (!string.IsNullOrEmpty(includeProperties))
             {
-                foreach (var includeProp in incluceProperties
+                foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);

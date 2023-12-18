@@ -1,8 +1,10 @@
 ﻿using CoolStore.DataAccess.Repository;
 using CoolStore.DataAccess.Repository.IRepository;
 using CoolStore.Models;
+using CoolStore.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Security.Claims;
 
 namespace CoolStore.Areas.Customer.Controllers
@@ -17,6 +19,14 @@ namespace CoolStore.Areas.Customer.Controllers
         }
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if(claim != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionCart, 
+                    _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+            }
             IEnumerable<Product> products = _unitOfWork.Product.GetAll(includeProperties: "Category");
             return View(products);
         }
@@ -47,10 +57,13 @@ namespace CoolStore.Areas.Customer.Controllers
             {
                 cartFromDb.Count += cart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
             }
             else
             {
-                _unitOfWork.ShoppingCart.Add(cart);                
+                _unitOfWork.ShoppingCart.Add(cart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u=> u.ApplicationUserId == userId).Count());
             }
             TempData["success"] = "Cart updated successfully!";
             _unitOfWork.Save();

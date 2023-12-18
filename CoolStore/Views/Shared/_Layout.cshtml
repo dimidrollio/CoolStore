@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,10 +28,12 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>  
-                        <li>
-                            <a class="nav-link" asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a>
                         </li>
+
+                        <li>
+                            @await Component.InvokeAsync("ShoppingCart")
+                        </li>
+
                         <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
 
                         @if (User.IsInRole(SD.Role_Admin))
@@ -52,7 +58,7 @@
                             </li>
                         }                      
                     </ul>
-                    <partial name="_loginPartial" />   
+                    <partial name="_LoginPartial" />   
                 </div>
             </div>
         </nav>
@@ -60,7 +66,7 @@
     <div class="container">
         <main role="main" class="pb-3">
             <partial name="_Notification" />
-            @RenderBody()
+            @RenderBody();
         </main>
     </div>
 
@@ -69,6 +75,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false);
 </body>
 </html>
