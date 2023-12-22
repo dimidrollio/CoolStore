@@ -366,3 +366,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /CoolStore/appsettings.json
+/CoolStore.DataAccess/DbInitializer/Dbinitializer.cs
